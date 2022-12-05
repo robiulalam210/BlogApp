@@ -181,36 +181,105 @@ class _UpdatePostBlogState extends State<UpdatePostBlog> {
     );
   }
 
-  UpdateData(selectdata) async {
-    loading = true;
-    FirebaseStorage storage = await FirebaseStorage.instance;
-    UploadTask uploadTask =
-        storage.ref("Course").child(_courseImages!.name).putFile(_images!);
-    TaskSnapshot _snapshot = await uploadTask;
-    var imgUrl = await _snapshot.ref.getDownloadURL();
+  // UpdateData(selectdata) async {
+  //   loading = true;
+  //   FirebaseStorage storage = await FirebaseStorage.instance;
+  //   UploadTask uploadTask =
+  //       storage.ref("Course").child(_courseImages!.name).putFile(_images!);
+  //   TaskSnapshot _snapshot = await uploadTask;
+  //   var imgUrl = await _snapshot.ref.getDownloadURL();
+  //
+  //   await FirebaseFirestore.instance
+  //       .collection("Course")
+  //       .doc(selectdata)
+  //       .update(({
+  //         "title": _controllerTitle.text,
+  //         "dis": _controllerDiscreption.text,
+  //         "img": imgUrl
+  //       }))
+  //       .then((value) {
+  //     Utlis().toastMessage("Sucessfull");
+  //     Navigator.pushAndRemoveUntil(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => HomePage()),
+  //         (route) => false);
+  //     setState(() {
+  //       loading = false;
+  //     });
+  //   }).onError((error, stackTrace) {
+  //     Utlis().toastMessage(error.toString());
+  //     setState(() {
+  //       loading = false;
+  //     });
+  //   });
+  // }
 
-    await FirebaseFirestore.instance
-        .collection("Course")
-        .doc(selectdata)
-        .update(({
-          "title": _controllerTitle.text,
-          "dis": _controllerDiscreption.text,
-          "img": imgUrl
-        }))
-        .then((value) {
-      Utlis().toastMessage("Sucessfull");
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-          (route) => false);
-      setState(() {
-        loading = false;
+  UpdateData(selectdata) async {
+
+    if (_courseImages != null) {
+      loading = true;
+      FirebaseStorage storage = await FirebaseStorage.instance;
+      UploadTask uploadTask =
+      storage.ref("Course").child(_courseImages!.name).putFile(_images!);
+
+      TaskSnapshot _snapshot = await uploadTask.whenComplete(() {});
+
+      await _snapshot.ref.getDownloadURL().then((url) async {
+        await FirebaseFirestore.instance
+            .collection("Course")
+            .doc(selectdata)
+            .update(({
+              "title": _controllerTitle.text,
+              "dis": _controllerDiscreption.text,
+              "img":url
+            }))
+            .then((value) {
+          Utlis().toastMessage("Sucessfull");
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()),
+              (route) => false);
+          setState(() {
+            loading = false;
+          });
+        }).onError((error, stackTrace) {
+          Utlis().toastMessage(error.toString());
+          setState(() {
+            loading = false;
+          });
+        });
       });
-    }).onError((error, stackTrace) {
-      Utlis().toastMessage(error.toString());
-      setState(() {
-        loading = false;
+    } else {
+      loading = false;
+      FirebaseStorage storage = await FirebaseStorage.instance;
+      UploadTask uploadTask =
+      storage.ref("Course").child(_courseImages!.name).putFile(_images!);
+      TaskSnapshot _snapshot = await uploadTask.whenComplete(() {});
+      await _snapshot.ref.getDownloadURL().then((url) async {
+        await FirebaseFirestore.instance
+            .collection("Course")
+            .doc(selectdata)
+            .update(({
+              "title": _controllerTitle.text,
+              "dis": _controllerDiscreption.text,
+              "img": url
+            }))
+            .then((value) {
+          Utlis().toastMessage("Sucessfull");
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()),
+              (route) => false);
+          setState(() {
+            loading = false;
+          });
+        }).onError((error, stackTrace) {
+          Utlis().toastMessage(error.toString());
+          setState(() {
+            loading = false;
+          });
+        });
       });
-    });
+    }
   }
 }
