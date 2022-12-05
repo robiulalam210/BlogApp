@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,21 +16,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Stream<QuerySnapshot> _stream =
-  FirebaseFirestore.instance.collection("Course").snapshots();
+      FirebaseFirestore.instance.collection("Course").snapshots();
 
   UpDate(cource_id, cource_title, cource_dis, img) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (builder) =>
-        UpdatePostBlog(docmentID: cource_id,
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (builder) => UpdatePostBlog(
+            docmentID: cource_id,
             title: cource_title,
             dis: cource_dis,
             img: img)));
   }
+
   @override
   Widget build(BuildContext context) {
     final auth = FirebaseAuth.instance;
     Future<void> deleteUser(selectedData) {
       CollectionReference users =
-      FirebaseFirestore.instance.collection('Course');
+          FirebaseFirestore.instance.collection('Course');
       return users.doc(selectedData).delete().then((value) {
         print("User Deleted");
         Utlis().toastMessage("Delet");
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => LoginScreen()),
-                            (route) => false);
+                        (route) => false);
                   }).onError((error, stackTrace) {});
                 },
                 icon: Icon(Icons.logout))
@@ -84,30 +85,26 @@ class _HomePageState extends State<HomePage> {
                     }
                     return ListView(
                       children:
-                      snapshot.data!.docs.map((DocumentSnapshot document) {
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
                         Map<String, dynamic> data =
-                        document.data() as Map<String, dynamic>;
+                            document.data() as Map<String, dynamic>;
 
                         return Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
                           padding: EdgeInsets.all(5),
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.3,
+                          height: MediaQuery.of(context).size.height * 0.3,
                           child: Card(
                             elevation: 5,
                             child: Row(
                               children: [
                                 Expanded(
-                                    flex: 1,
+                                    flex: 2,
                                     child: Container(
-                                      padding: EdgeInsets.all(10),
                                       child: ClipRRect(
                                           borderRadius:
-                                          BorderRadius.circular(12),
-                                          child: Image.network(data["img"])),
+                                              BorderRadius.circular(12),
+                                          child: Image.network(data["img"],fit: BoxFit.cover,)),
                                     )),
                                 Expanded(
                                     flex: 1,
@@ -115,15 +112,14 @@ class _HomePageState extends State<HomePage> {
                                       padding: EdgeInsets.all(10),
                                       child: Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           SizedBox(
-                                            height: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
                                                 0.01,
                                           ),
                                           Text(
@@ -131,10 +127,9 @@ class _HomePageState extends State<HomePage> {
                                             style: TextStyle(fontSize: 22),
                                           ),
                                           SizedBox(
-                                            height: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
                                                 0.01,
                                           ),
                                           Text(data["dis"],
@@ -144,7 +139,8 @@ class _HomePageState extends State<HomePage> {
                                             children: [
                                               IconButton(
                                                   onPressed: () {
-                                                    UpDate(document.id,
+                                                    UpDate(
+                                                        document.id,
                                                         data["title"],
                                                         data["dis"],
                                                         data["img"]);
@@ -176,5 +172,3 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
-
-
