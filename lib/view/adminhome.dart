@@ -7,14 +7,14 @@ import 'package:myblog_app/view/Blog/updatepost_blog.dart';
 import 'package:myblog_app/view/signup_login/login.dart';
 import 'package:myblog_app/widget/textformfield.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class AdminHomePage extends StatefulWidget {
+  const AdminHomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AdminHomePage> createState() => _AdminHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AdminHomePageState extends State<AdminHomePage> {
   Stream<QuerySnapshot> _stream =
       FirebaseFirestore.instance.collection("Course").snapshots();
 
@@ -124,6 +124,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           Text(
                                             data["title"],
+                                            maxLines: 2,
                                             style: TextStyle(fontSize: 22),
                                           ),
                                           SizedBox(
@@ -133,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                                                 0.01,
                                           ),
                                           Text(data["dis"],
-                                              maxLines: 4,
+                                              maxLines: 3,
                                               style: TextStyle(fontSize: 16)),
                                           Row(
                                             children: [

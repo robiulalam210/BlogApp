@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:myblog_app/Utlis/utlis.dart';
-import 'package:myblog_app/view/home.dart';
+import 'package:myblog_app/view/adminhome.dart';
 import 'package:myblog_app/view/signup_login/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myblog_app/widget/coustom_button.dart';
 import 'package:myblog_app/widget/textformfield.dart';
+
+import '../home_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

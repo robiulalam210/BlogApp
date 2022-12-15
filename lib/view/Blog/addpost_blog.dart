@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myblog_app/Utlis/utlis.dart';
-import 'package:myblog_app/view/home.dart';
+import 'package:myblog_app/view/adminhome.dart';
 import 'package:myblog_app/widget/coustom_button.dart';
 import 'package:myblog_app/widget/textformfield.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../home_page.dart';
 
 class AddPostBlog extends StatefulWidget {
   const AddPostBlog({Key? key}) : super(key: key);
