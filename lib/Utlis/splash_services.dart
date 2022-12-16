@@ -12,7 +12,7 @@ class SplashServices {
     final user = auth.currentUser;
 
     if (user != null) {
-      Timer.periodic(Duration(seconds: 5), (timer) {
+      Timer.periodic(Duration(seconds: 3), (timer) {
         //Navigator.push(context, MaterialPageRoute(builder: (context)=>SingIn()));
 
         Navigator.pushAndRemoveUntil(

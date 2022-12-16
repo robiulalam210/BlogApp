@@ -99,7 +99,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                             child: Row(
                               children: [
                                 Expanded(
-                                    flex: 2,
+                                    flex: 1,
                                     child: Container(
                                       child: ClipRRect(
                                           borderRadius:
