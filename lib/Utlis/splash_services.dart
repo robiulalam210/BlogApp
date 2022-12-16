@@ -6,6 +6,7 @@ import 'package:myblog_app/view/adminhome.dart';
 import 'package:myblog_app/view/signup_login/login.dart';
 
 import '../view/home_page.dart';
+
 class SplashServices {
   void Login(BuildContext context) {
     final auth = FirebaseAuth.instance;
